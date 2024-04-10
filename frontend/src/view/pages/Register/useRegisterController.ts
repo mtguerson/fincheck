@@ -1,7 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
+
 import { authService } from "../../../app/services/authService";
+import { SignupParams } from "../../../app/services/authService/signup";
 
 const schema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
@@ -20,9 +24,22 @@ export function useRegisterController() {
     resolver: zodResolver(schema),
   });
 
-  const handleSubmit = hookFormSubmit(async (data) => {
-    const { accessToken } = await authService.signup(data);
-  })
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (data: SignupParams) => {
+      return authService.signup(data);
+    },
+  });
 
-  return { register, errors, handleSubmit };
+  const handleSubmit = hookFormSubmit(async (data) => {
+    try {
+      const { accessToken } = await mutateAsync(data);
+      toast.success(accessToken);
+    } catch {
+      toast.error('Ocorreu um erro!');
+    }
+  });
+
+  console.log({ isPending });
+
+  return { register, errors, handleSubmit, isPending };
 }
