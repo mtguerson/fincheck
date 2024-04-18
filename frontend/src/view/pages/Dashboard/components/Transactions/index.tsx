@@ -1,6 +1,7 @@
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export function Transactions() {
   return (
@@ -18,6 +19,20 @@ export function Transactions() {
           </button>
         </div>
       </header>
+
+      <div className="mt-6">
+        <Swiper>
+          <SwiperSlide>
+            Jan
+          </SwiperSlide>
+          <SwiperSlide>
+            Fev
+          </SwiperSlide>
+          <SwiperSlide>
+            Mar
+          </SwiperSlide>
+        </Swiper>
+      </div>
 
       <div className="mt-4">
         Conteúdo
