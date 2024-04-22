@@ -5,6 +5,7 @@ import { EyeIcon } from "../../../../components/icons/EyeIcon";
 import { AccountCard } from "./AccountCard";
 import { SliderNavigation } from "./SliderNavigation";
 import { UseAccountsController } from "./useAccountsController";
+import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 
 export function Accounts() {
   const { sliderState, setSliderState, windowWidth } = UseAccountsController();
@@ -14,7 +15,7 @@ export function Accounts() {
         <span className="tracking-[-0.5px] text-white block">Saldo total</span>
         <div className="flex items-center gap-2">
           <strong className="text-2xl tracking-[-1px] text-white">
-            R$ 1000,00
+            {formatCurrency(1000.23)}
           </strong>
           <button className="w-8 h-8 flex items-center justify-center">
             <EyeIcon open />
