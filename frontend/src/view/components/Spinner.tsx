@@ -4,7 +4,7 @@ interface SpinnerProps {
   className?: string;
 }
 
-export function Spinner({ className }: SpinnerProps) {
+export default function Spinner({ className }: SpinnerProps) {
   return (
     <svg
       aria-hidden="true"
