@@ -98,7 +98,7 @@ export function Accounts() {
                     <AccountCard
                       color="#7950F2"
                       name="Nubank"
-                      balance={1000.23}
+                      balance={1000.50}
                       type="CASH"
                     />
                   </SwiperSlide>
@@ -107,7 +107,7 @@ export function Accounts() {
                     <AccountCard
                       color="#333"
                       name="XP"
-                      balance={1000.23}
+                      balance={1000.50}
                       type="INVESTMENT"
                     />
                   </SwiperSlide>
@@ -116,7 +116,7 @@ export function Accounts() {
                     <AccountCard
                       color="##0f0"
                       name="Carteira"
-                      balance={1000.23}
+                      balance={1000.50}
                       type="CASH"
                     />
                   </SwiperSlide>
