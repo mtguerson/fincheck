@@ -25,6 +25,7 @@ export function Dashboard() {
         </main>
 
         <Fab />
+
       </div>
     </DashboardProvider>
   );
