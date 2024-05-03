@@ -3,9 +3,13 @@ import { ReactNode, createContext, useCallback, useState } from "react";
 interface DashboardContextProps {
   areValuesVisible: boolean;
   isNewAccountModalOpen: boolean;
+  isNewTransactionModalOpen: boolean;
+  newTransactionType: 'INCOME' | 'EXPENSE' | null;
   toggleValuesVisibility(): void;
   openNewAccountModal(): void;
   closeNewAccountModal(): void;
+  openNewTransactionModal(type: 'INCOME' | 'EXPENSE'): void;
+  closeNewTransactionModal(): void;
 }
 
 export const DashboardContext = createContext({} as DashboardContextProps);
@@ -13,6 +17,8 @@ export const DashboardContext = createContext({} as DashboardContextProps);
 export function DashboardProvider({ children }: { children: ReactNode }) {
   const [areValuesVisible, setAreValuesVisible] = useState(true);
   const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
+  const [newTransactionType, setNewTransactionType] = useState<'INCOME' | 'EXPENSE' | null>(null);
 
   const toggleValuesVisibility = useCallback(() => {
     setAreValuesVisible(prevState => !prevState);
@@ -26,6 +32,16 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     setIsNewAccountModalOpen(false);
   }, []);
 
+  const openNewTransactionModal = useCallback((type: 'INCOME' | 'EXPENSE') => {
+    setNewTransactionType(type);
+    setIsNewTransactionModalOpen(true);
+  }, []);
+
+  const closeNewTransactionModal = useCallback(() => {
+    setNewTransactionType(null);
+    setIsNewTransactionModalOpen(false);
+  }, []);
+
   return (
     <DashboardContext.Provider
       value={{
@@ -33,7 +49,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         isNewAccountModalOpen,
         toggleValuesVisibility,
         openNewAccountModal,
-        closeNewAccountModal
+        closeNewAccountModal,
+        isNewTransactionModalOpen,
+        openNewTransactionModal,
+        closeNewTransactionModal,
+        newTransactionType,
       }}
     >
       {children}
