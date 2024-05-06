@@ -9,6 +9,9 @@ export function NewAccountModal() {
   const {
     isNewAccountModalOpen,
     closeNewAccountModal
+    errors,
+    handleSubmit,
+    register,
   } = useNewAccountModalController();
 
   return (
@@ -17,12 +20,14 @@ export function NewAccountModal() {
       open={isNewAccountModalOpen}
       onClose={closeNewAccountModal}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
-          <span className="text-gray-600 tracking-[-0.5px] text-xs">Saldo</span>
+          <span className="text-gray-600 tracking-[-0.5px] text-xs">Saldo inicial</span>
           <div className="flex items-center gap-2">
             <span className="text-gray-600 tracking-[-0.5px] text-lg">R$</span>
-            <InputCurrency />
+            <InputCurrency
+              error={errors.initialBalance?.message}
+            />
           </div>
         </div>
 
@@ -31,10 +36,12 @@ export function NewAccountModal() {
             type="text"
             name="name"
             placeholder="Nome da Conta"
+            error={errors.name?.message}
           />
 
           <Select
             placeholder="Tipo"
+            error={errors.type?.message}
             options={[
               {
                 value: "INVESTMENT",
@@ -51,7 +58,9 @@ export function NewAccountModal() {
             ]}
           />
 
-          <ColorsDropdownInput />
+          <ColorsDropdownInput
+            error={errors.color?.message}
+          />
         </div>
       </form>
     </Modal>
