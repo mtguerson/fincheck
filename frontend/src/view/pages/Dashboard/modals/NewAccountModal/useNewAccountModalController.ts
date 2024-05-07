@@ -22,6 +22,7 @@ export function useNewAccountModalController() {
     register,
     handleSubmit: hookFormSubmit,
     formState: { errors },
+    control,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
@@ -36,5 +37,6 @@ export function useNewAccountModalController() {
     register,
     errors,
     handleSubmit,
+    control,
   };
 }
