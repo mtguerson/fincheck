@@ -15,6 +15,7 @@ export function NewAccountModal() {
     handleSubmit,
     register,
     control,
+    isPending,
   } = useNewAccountModalController();
 
   return (
@@ -94,7 +95,7 @@ export function NewAccountModal() {
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6">
+        <Button type="submit" className="w-full mt-6" isPending={isPending}>
           Criar
         </Button>
       </form>

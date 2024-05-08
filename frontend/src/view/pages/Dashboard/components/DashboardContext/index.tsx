@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 
 interface DashboardContextProps {
   areValuesVisible: boolean;
@@ -14,7 +14,7 @@ interface DashboardContextProps {
 
 export const DashboardContext = createContext({} as DashboardContextProps);
 
-export function DashboardProvider({ children }: { children: ReactNode }) {
+export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [areValuesVisible, setAreValuesVisible] = useState(true);
   const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
