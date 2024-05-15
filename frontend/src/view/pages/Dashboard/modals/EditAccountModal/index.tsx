@@ -1,28 +1,28 @@
-import { Controller } from 'react-hook-form'
-import { Button } from '../../../../components/Button'
-import { ColorsDropdownInput } from '../../../../components/ColorsDropdownInput'
-import { Input } from '../../../../components/Input'
-import { InputCurrency } from '../../../../components/InputCurrency'
-import { Modal } from '../../../../components/Modal'
-import { Select } from '../../../../components/Select'
-import { useNewAccountModalController } from './useNewAccountModalController'
+import { Controller } from "react-hook-form";
+import { ColorsDropdownInput } from "../../../../components/ColorsDropdownInput";
+import { Input } from "../../../../components/Input";
+import { InputCurrency } from "../../../../components/InputCurrency";
+import { Modal } from "../../../../components/Modal";
+import { Select } from "../../../../components/Select";
+import { useEditAccountModalController } from "./useEditAccountModalController";
+import { Button } from "../../../../components/Button";
 
-export function NewAccountModal() {
+export function EditAccountModal() {
   const {
-    closeNewAccountModal,
-    isNewAccountModalOpen,
+    isEditAccountModalOpen,
+    closeEditAccountModal,
     errors,
     handleSubmit,
     register,
     control,
-    isLoading
-  } = useNewAccountModalController()
+    isLoading,
+  } = useEditAccountModalController();
 
   return (
     <Modal
-      title="Nova Conta"
-      open={isNewAccountModalOpen}
-      onClose={closeNewAccountModal}
+      title="Editar conta"
+      open={isEditAccountModalOpen}
+      onClose={closeEditAccountModal}
     >
       <form onSubmit={handleSubmit}>
         <div>
@@ -33,11 +33,12 @@ export function NewAccountModal() {
             <Controller
               control={control}
               name="initialBalance"
+              defaultValue="0"
               render={({ field: { onChange, value } }) => (
                 <InputCurrency
                   error={errors.initialBalance?.message}
-                  value={value}
                   onChange={onChange}
+                  value={value}
                 />
               )}
             />
@@ -49,14 +50,14 @@ export function NewAccountModal() {
             type="text"
             placeholder="Nome da Conta"
             error={errors.name?.message}
-            {...register('name')}
+            {...register("name")}
           />
 
           <Controller
             control={control}
             name="type"
-            defaultValue="CHECKING"
-            render={({ field: { onChange, value } }) => (
+            defaultValue="CASH"
+            render={({ field: { onChange, value }}) => (
               <Select
                 placeholder="Tipo"
                 error={errors.type?.message}
@@ -64,16 +65,16 @@ export function NewAccountModal() {
                 value={value}
                 options={[
                   {
-                    label: 'Conta Corrente',
-                    value: 'CHECKING'
+                    value: "INVESTMENT",
+                    label: "Investimentos",
                   },
                   {
-                    label: 'Investimentos',
-                    value: 'INVESTMENT'
+                    value: "CHECKING",
+                    label: "Conta corrente",
                   },
                   {
-                    label: 'Dinheiro Físico',
-                    value: 'CASH'
+                    value: "CASH",
+                    label: "Dinheiro Físico",
                   },
                 ]}
               />
@@ -81,21 +82,23 @@ export function NewAccountModal() {
           />
 
           <Controller
-            name="color"
             control={control}
+            name="color"
             defaultValue=""
             render={({ field: { onChange, value } }) => (
               <ColorsDropdownInput
-                error={errors.color?.message}
                 onChange={onChange}
                 value={value}
+                error={errors.color?.message}
               />
             )}
           />
-
-          <Button type="submit" className="w-full mt-6" isLoading={isLoading}>Criar</Button>
         </div>
+
+        <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
+          Salvar
+        </Button>
       </form>
     </Modal>
-  )
+  );
 }

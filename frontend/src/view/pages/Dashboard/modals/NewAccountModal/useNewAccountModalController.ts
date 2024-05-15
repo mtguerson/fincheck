@@ -1,69 +1,66 @@
-import { z } from "zod";
-import { useDashboard } from "../../components/DashboardContext/useDashboard";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { bankAccountsService } from "../../../../../app/services/bankAccountsService";
-import { BankAccountParams } from "../../../../../app/services/bankAccountsService/create";
-import { currencyStringToNumber } from "../../../../../app/utils/currencyStringToNumber";
-import toast from "react-hot-toast";
+import { z } from 'zod'
+import { useDashboard } from '../../components/DashboardContext/useDashboard'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { bankAccountsService } from '../../../../../app/services/bankAccountsService'
+import toast from 'react-hot-toast'
+import { currencyStringToNumber } from '../../../../../app/utils/currencyStringToNumber'
 
 const schema = z.object({
-  initialBalance: z.string().min(1, "Saldo inicial é obrigatório"),
-  name: z.string().min(1, "Nome da conta é obrigatório"),
+  initialBalance: z.string().nonempty('Saldo inicial é obrigatório'),
+  name: z.string().nonempty('Nome é obrigatório'),
   type: z.enum(['CHECKING', 'INVESTMENT', 'CASH']),
-  color: z.string().min(1, "Cor é obrigatória"),
-});
+  color: z.string().nonempty('Cor é obrigatória')
+})
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>
 
 export function useNewAccountModalController() {
   const {
     isNewAccountModalOpen,
-    closeNewAccountModal,
-  } = useDashboard();
+    closeNewAccountModal
+  } = useDashboard()
 
   const {
     register,
     handleSubmit: hookFormSubmit,
     formState: { errors },
     control,
-    reset,
+    reset
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-  });
+    defaultValues: {
+      initialBalance: '0'
+    }
+  })
 
-  const queryClient = useQueryClient();
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: async (data: BankAccountParams) => {
-      return bankAccountsService.create(data);
-    },
-  });
+  const queryClient = useQueryClient()
+  const { isLoading, mutateAsync } = useMutation(bankAccountsService.create)
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
       await mutateAsync({
         ...data,
-        initialBalance: currencyStringToNumber(data.initialBalance),
-      });
+        initialBalance: currencyStringToNumber(data.initialBalance)
+      })
 
-      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
-      toast.success('Conta cadastrada com sucesso!');
-      closeNewAccountModal();
-      reset();
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] })
+      toast.success('Conta cadastrada com sucesso!')
+      closeNewAccountModal()
+      reset()
     } catch {
-      toast.error('Erro ao cadastrar a conta!');
+      toast.error('Erro ao cadastrar a conta!')
     }
-  });
+  })
 
   return {
     isNewAccountModalOpen,
     closeNewAccountModal,
     register,
+    control,
     errors,
     handleSubmit,
-    control,
-    isPending,
-  };
+    isLoading
+  }
 }
