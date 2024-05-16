@@ -6,7 +6,7 @@ import { bankAccountsService } from "../../../../../app/services/bankAccountsSer
 
 export function UseAccountsController() {
   const windowWidth = useWindowWidth();
-  const { areValuesVisible, toggleValuesVisibility, openNewAccountModal } = useDashboard();
+  const { areValuesVisible, toggleValueVisibility, openNewAccountModal } = useDashboard();
 
   const [sliderState, setSliderState] = useState({
     isBeginning: false,
@@ -29,7 +29,7 @@ export function UseAccountsController() {
     setSliderState,
     windowWidth,
     areValuesVisible,
-    toggleValuesVisibility,
+    toggleValueVisibility,
     isLoading: isFetching,
     accounts: data ?? [],
     openNewAccountModal,

@@ -2,19 +2,19 @@ import { createContext, useCallback, useState } from 'react'
 import { BankAccount } from '../../../../../app/entities/BankAccount'
 
 interface DashboardContextValue {
-  areValuesVisible: boolean
-  isNewAccountModalOpen: boolean
-  isEditAccountModalOpen: boolean
-  isNewTransactionModalOpen: boolean
-  accountBeingEdited: BankAccount | null
-  newTransactionType: 'INCOME' | 'EXPENSE' | null
-  toggleValueVisibility: () => void
-  openNewAccountModal: () => void
-  closeNewAccountModal: () => void
-  openEditAccountModal: (bankAccount: BankAccount) => void
-  closeEditAccountModal: () => void
-  openNewTransactionModal: (type: 'INCOME' | 'EXPENSE') => void
-  closeNewTransactionModal: () => void
+  areValuesVisible: boolean;
+  isNewAccountModalOpen: boolean;
+  isEditAccountModalOpen: boolean;
+  isNewTransactionModalOpen: boolean;
+  accountBeingEdited: BankAccount | null;
+  newTransactionType: 'INCOME' | 'EXPENSE' | null;
+  toggleValueVisibility: () => void;
+  openNewAccountModal: () => void;
+  closeNewAccountModal: () => void;
+  openEditAccountModal: (bankAccount: BankAccount) => void;
+  closeEditAccountModal: () => void;
+  openNewTransactionModal: (type: 'INCOME' | 'EXPENSE') => void;
+  closeNewTransactionModal: () => void;
 }
 
 export const DashboardContext = createContext({} as DashboardContextValue)

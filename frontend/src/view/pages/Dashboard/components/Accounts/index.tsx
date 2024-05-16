@@ -16,7 +16,7 @@ export function Accounts() {
     setSliderState,
     windowWidth,
     areValuesVisible,
-    toggleValuesVisibility,
+    toggleValueVisibility,
     isLoading,
     accounts,
     openNewAccountModal,
@@ -44,7 +44,7 @@ export function Accounts() {
               </strong>
               <button
                 className="w-8 h-8 flex items-center justify-center"
-                onClick={toggleValuesVisibility}
+                onClick={toggleValueVisibility}
               >
                 <EyeIcon open={!areValuesVisible} />
               </button>
