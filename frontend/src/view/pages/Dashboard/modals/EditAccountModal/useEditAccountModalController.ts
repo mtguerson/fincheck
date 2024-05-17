@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { bankAccountsService } from "../../../../../app/services/bankAccountsService";
 import { currencyStringToNumber } from "../../../../../app/utils/currencyStringToNumber";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 const schema = z.object({
   initialBalance: z.union([
@@ -41,13 +42,24 @@ export function useEditAccountModalController() {
     },
   });
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const queryClient = useQueryClient();
 
-  const { isLoading, mutateAsync } = useMutation(bankAccountsService.update);
+  const {
+    isLoading,
+    mutateAsync: updateAccount,
+  } = useMutation(bankAccountsService.update);
+
+  const {
+    isLoading: isLoadingDelete,
+    mutateAsync: removeAccount,
+  } = useMutation(bankAccountsService.remove);
+
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      await mutateAsync({
+      await updateAccount({
         ...data,
         initialBalance: currencyStringToNumber(data.initialBalance),
         id: accountBeingEdited!.id,
@@ -61,6 +73,26 @@ export function useEditAccountModalController() {
     }
   });
 
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
+
+  async function handleDeleteAccount() {
+    try {
+      await removeAccount(accountBeingEdited!.id);
+
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
+      toast.success('A Conta foi deletada com sucesso!');
+      closeEditAccountModal();
+    } catch {
+      toast.error('Erro ao deletar a conta');
+    }
+  }
+
   return {
     isEditAccountModalOpen,
     closeEditAccountModal,
@@ -70,5 +102,10 @@ export function useEditAccountModalController() {
     control,
     isLoading,
     accountBeingEdited,
+    isDeleteModalOpen,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteAccount,
+    isLoadingDelete,
   };
 }
