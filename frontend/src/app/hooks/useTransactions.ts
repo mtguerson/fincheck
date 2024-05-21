@@ -5,7 +5,7 @@ export function useTransactions() {
   const { data } =  useQuery({
     queryKey: ["transactions"],
     queryFn: () => transactionsService.getAll({
-      month: 7,
+      month: 4,
       year: 2024,
     }),
   });

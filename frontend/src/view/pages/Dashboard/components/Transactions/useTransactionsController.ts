@@ -9,8 +9,6 @@ export function useTransactionsController() {
 
   const { transactions } = useTransactions();
 
-  console.log({transactions});
-
   function handleOpenFiltersModal() {
     setIsFiltersModalOpen(true);
   }
@@ -21,7 +19,7 @@ export function useTransactionsController() {
 
   return {
     areValuesVisible,
-    transactions: [],
+    transactions,
     isInitialLoading: false,
     isLoading: false,
     handleOpenFiltersModal,
