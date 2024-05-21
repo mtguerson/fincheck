@@ -22,6 +22,8 @@ export function Transactions() {
     isFiltersModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
+    handleChangeFilters,
+    filters
   } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -54,6 +56,10 @@ export function Transactions() {
             <Swiper
               slidesPerView={3}
               centeredSlides
+              initialSlide={filters.month}
+              onSlideChange={swiper => {
+                handleChangeFilters("month")(swiper.realIndex);
+              }}
             >
               <SliderNavigation />
 
