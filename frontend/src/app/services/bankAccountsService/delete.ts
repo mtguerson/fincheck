@@ -1,15 +1,11 @@
-import { httpClient } from '../httpClient'
+import { create } from "./create";
+import { remove } from "./remove";
+import { getAll } from "./getAll";
+import { update } from "./update";
 
-export interface DeleteBankAccountParams {
-  id: string;
-  name: string;
-  initialBalance: number;
-  color: string;
-  type: 'CHECKING' | 'INVESTMENT' | 'CASH';
-}
-
-export async function remove(bankAccountId: string) {
-  const { data } = await httpClient.delete(`/bank-accounts/${bankAccountId}`);
-
-  return data;
-}
+export const bankAccountsService = {
+  create,
+  getAll,
+  update,
+  remove,
+};

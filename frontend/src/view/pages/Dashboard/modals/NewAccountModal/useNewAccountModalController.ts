@@ -3,7 +3,7 @@ import { useDashboard } from '../../components/DashboardContext/useDashboard'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { bankAccountsService } from '../../../../../app/services/bankAccountsService'
+import { bankAccountsService } from '../../../../../app/services/bankAccountsService/delete'
 import toast from 'react-hot-toast'
 import { currencyStringToNumber } from '../../../../../app/utils/currencyStringToNumber'
 

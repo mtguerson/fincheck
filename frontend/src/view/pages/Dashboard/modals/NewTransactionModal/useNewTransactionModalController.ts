@@ -2,7 +2,7 @@ import { z } from "zod";
 import { useDashboard } from "../../components/DashboardContext/useDashboard";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useBankAccounts } from "../../../../../app/hooks/useBankAccount";
+import { useBankAccounts } from "../../../../../app/hooks/useBankAccounts";
 import { useCategories } from "../../../../../app/hooks/useCategories";
 import { useMemo } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -55,13 +55,14 @@ export function useNewTransactionModalController() {
       });
 
       queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] })
       toast.success(
         newTransactionType === "EXPENSE"
           ? "Despesa cadastrada com sucesso!"
           : "Receita cadastrada com sucesso!"
       );
       closeNewTransactionModal();
-      reset()
+      reset();
     } catch {
       toast.error(
         newTransactionType === "EXPENSE"

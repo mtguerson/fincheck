@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useWindowWidth } from "../../../../../app/hooks/useWindowWidth";
 import { useDashboard } from "../DashboardContext/useDashboard";
-import { useBankAccounts } from "../../../../../app/hooks/useBankAccount";
+import { useBankAccounts } from "../../../../../app/hooks/useBankAccounts";
 
 export function UseAccountsController() {
   const windowWidth = useWindowWidth();
