@@ -8,7 +8,7 @@ export function UseAccountsController() {
   const { areValuesVisible, toggleValueVisibility, openNewAccountModal } = useDashboard();
 
   const [sliderState, setSliderState] = useState({
-    isBeginning: false,
+    isBeginning: true,
     isEnd: false,
   });
 

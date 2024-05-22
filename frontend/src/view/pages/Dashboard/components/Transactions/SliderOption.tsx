@@ -1,13 +1,13 @@
 import { useSwiper } from "swiper/react";
 import { cn } from "../../../../../app/utils/cn";
 
-interface SLiderOptionProps {
+interface SliderOptionProps {
   isActive: boolean;
   month: string;
   index: number;
 }
 
-export function SliderOption({ isActive, month, index }: SLiderOptionProps) {
+export function SliderOption({ isActive, month, index }: SliderOptionProps) {
   const swiper = useSwiper();
 
   return (

@@ -25,7 +25,6 @@ export function InputCurrency({
       <CurrencyInput
         groupSeparator="."
         decimalSeparator=","
-        decimalScale={2}
         value={value}
         defaultValue={defaultValue}
         onValueChange={(value) => onChange(value)}

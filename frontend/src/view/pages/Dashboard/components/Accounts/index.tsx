@@ -99,7 +99,7 @@ export function Accounts() {
 
                   {accounts.map(account => (
                     <SwiperSlide key={account.id}>
-                      <AccountCard data={account}/>
+                      <AccountCard data={account} />
                     </SwiperSlide>
                   ))}
 
